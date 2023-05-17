@@ -30,6 +30,12 @@ export default function Home() {
 	const [title, setTitle] = useState<string | null>(titles[0]);
 	const [subtitle, setSubtitle] = useState<string | null>(subtitles[0]);
 
+	/* for (let i = 0; i < titles.length; i++) {
+		const index = random(0, titles.length - 1);
+		setTitle(titles[index]);
+		setSubtitle(subtitles[index]);
+	} */
+
 	return (
 		<main className='overflow-hidden relative'>
 			<section className=' min-h-screen flex items-center justify-center bg-gradient-to-r from-emerald-500 to-blue-900'>
