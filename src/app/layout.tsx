@@ -1,5 +1,4 @@
 import { ContentProvider } from '@/provider/content';
-import splitbee from '@splitbee/web';
 import { Inter } from 'next/font/google';
 
 import './globals.css';
@@ -11,8 +10,6 @@ export const metadata = {
 	description: 'Crea tu propio buscador de ofertas de trabajo',
 };
 
-splitbee.init();
-
 export default function RootLayout({
 	children,
 }: {
@@ -20,6 +17,11 @@ export default function RootLayout({
 }) {
 	return (
 		<html lang='en'>
+			<head>
+				<script
+					async
+					src='https://cdn.splitbee.io/sb.js'></script>
+			</head>
 			<body className={`${inter.className} overflow-hidden`}>
 				<ContentProvider>{children}</ContentProvider>
 			</body>
