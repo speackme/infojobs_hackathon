@@ -5,12 +5,13 @@ import { ChangeEvent, FormEvent, KeyboardEvent, useRef, useState } from 'react';
 import { CgSearch } from 'react-icons/cg';
 
 const WAIT_TIME = 1000;
-const DEFAULT_PLACEHOLDER = 'Ej: Desarrollador, Diseñador, etc.';
+const DEFAULT_PLACEHOLDER = 'Ej: Desarrollador, Diseñador ...';
 const DEFAULT_BUTTON = 'Encontrar trabajo';
 
 export function Search() {
 	const { show, setShow } = useContent();
 	const [searchValue, setSearchValue] = useState('');
+	const [suggestionValue, setSuggestionValue] = useState('');
 	const [suggestions, setSuggestions] = useState('');
 	const [placeholder, setPlaceholder] = useState(DEFAULT_PLACEHOLDER);
 	const [textButton, setTextButton] = useState(DEFAULT_BUTTON);
@@ -21,7 +22,7 @@ export function Search() {
 		if (abortControllerRef.current) {
 			abortControllerRef.current.abort();
 		}
-		// Aquí puedes realizar la búsqueda en la API utilizando searchTerm
+
 		if (searchTerm.length === 0) return setSuggestions('');
 
 		const controller = new AbortController();
@@ -31,15 +32,16 @@ export function Search() {
 
 		setTextButton('+10 ofertas de trabajo');
 
+		// Recuperar total de ofertas de trabajo
 		/* try {
 			const response = await fetch(
-				`/api/suggestions?term=${searchTerm}`,
+				`/api/offer?total=true&term=${searchTerm}`,
 				{
 					signal: controller.signal,
 				}
 			);
 			const data = await response.json();
-			setSuggestions(data.suggestions);
+			
 		} catch (error) {
 			console.error('Error al realizar la solicitud:', error);
 		} */
@@ -52,8 +54,6 @@ export function Search() {
 
 	const onChange = (event: ChangeEvent<HTMLInputElement>) => {
 		const { value } = event.target;
-		console.log({ value });
-
 		setSearchValue(value);
 		handleSearch(value);
 	};
@@ -63,13 +63,10 @@ export function Search() {
 	const handleKeyDown = (event: KeyboardEvent<HTMLInputElement>) => {
 		if (event.key === 'Tab') {
 			event.preventDefault();
-			console.log({ suggestions });
-			// Aquí puedes agregar la lógica para realizar la búsqueda
-			// utilizando el valor del input (searchValue)
-			setSearchValue(suggestions);
+			setSearchValue(suggestionValue);
 
 			if (ref?.current) {
-				ref.current.value = suggestions;
+				ref.current.value = suggestionValue;
 			}
 		}
 	};
@@ -93,7 +90,8 @@ export function Search() {
 			setSuggestions('');
 			const response = await fetch(`/api/suggestions?term=${value}`);
 			const data = await response.json();
-			setSuggestions(data.suggestions);
+			setSuggestions(data.format.substring(0, 30));
+			setSuggestionValue(data.suggestions);
 		} catch (error) {
 			console.error('Error al realizar la solicitud:', error);
 		}
@@ -118,6 +116,7 @@ export function Search() {
 						className='font-mono lowercase w-full absolute top-0 left-0 pt-4 pb-4 text-gray-400  text-xl text-start overflow-hidden whitespace-nowrap'
 						style={{ height: '60px' }}
 						value={suggestions}
+						readOnly
 					/>
 					<input
 						ref={ref}
@@ -128,6 +127,7 @@ export function Search() {
 						onChange={handleChange}
 						onKeyDown={handleKeyDown}
 						onKeyUp={onKeyUp}
+						maxLength={30}
 					/>
 				</div>
 
