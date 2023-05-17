@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { TypeAnimation } from 'react-type-animation';
 import { Content } from '../components/content';
 import { Search } from '../components/search';
@@ -27,19 +27,21 @@ function random(min: number, max: number): number {
 
 export default function Home() {
 	/* const index = random(0, titles.length - 1); */
+	const [show, setShow] = useState<string>('opacity-0');
 	const [title, setTitle] = useState<string | null>(titles[0]);
 	const [subtitle, setSubtitle] = useState<string | null>(subtitles[0]);
 
-	/* for (let i = 0; i < titles.length; i++) {
-		const index = random(0, titles.length - 1);
-		setTitle(titles[index]);
-		setSubtitle(subtitles[index]);
-	} */
+	useEffect(() => {
+		setTimeout(() => {
+			setShow('opacity-100');
+		}, 500);
+	}, []);
 
 	return (
 		<main className='overflow-hidden relative'>
-			<section className=' min-h-screen flex items-center justify-center bg-gradient-to-r from-emerald-500 to-blue-900'>
-				<div className=' max-w-3xl text-center flex items-center flex-col gap-4'>
+			<section className='min-h-screen flex items-center justify-center bg-gradient-to-r from-emerald-500 to-blue-900'>
+				<div
+					className={`${show} duration-1000 max-w-3xl text-center flex items-center flex-col gap-4`}>
 					<div>
 						<img
 							src='/ij.webp'
@@ -58,6 +60,7 @@ export default function Home() {
 					</small>
 					<TypeAnimation
 						sequence={[
+							1000,
 							'+ de 5.000 trabajos cualificados en todo el mundo', // Types 'Three' without deleting 'Two'
 							() => {
 								console.log('Sequence completed');
@@ -66,7 +69,7 @@ export default function Home() {
 						wrapper='h4'
 						cursor={true}
 						className='text-xl'
-						style={{ display: 'inline-block' }}
+						style={{ display: 'inline-block', height: '27px' }}
 					/>
 				</div>
 			</section>
