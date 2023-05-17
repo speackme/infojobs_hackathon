@@ -6,11 +6,7 @@ export function Content() {
 	const [showStyle, setShowStyle] = useState('translate-y-0');
 
 	useEffect(() => {
-		if (!show) {
-			setShowStyle('translate-y-0');
-		} else {
-			setShowStyle('-translate-y-full');
-		}
+		setShowStyle(!show ? 'translate-y-0' : '-translate-y-full');
 	}, [show]);
 
 	return (
