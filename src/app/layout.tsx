@@ -1,5 +1,7 @@
 import { ContentProvider } from '@/provider/content';
+import splitbee from '@splitbee/web';
 import { Inter } from 'next/font/google';
+
 import './globals.css';
 
 const inter = Inter({ subsets: ['latin'] });
@@ -8,6 +10,8 @@ export const metadata = {
 	title: 'Hackathon Infojobs',
 	description: 'Crea tu propio buscador de ofertas de trabajo',
 };
+
+splitbee.init();
 
 export default function RootLayout({
 	children,
