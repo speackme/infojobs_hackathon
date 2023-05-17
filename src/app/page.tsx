@@ -42,7 +42,7 @@ export default function Home() {
 				<div className=' max-w-3xl text-center flex items-center flex-col gap-4'>
 					<div>
 						<img
-							src='/ij.png'
+							src='/ij.webp'
 							alt='InfoJobs'
 							className='w-80 mx-auto'
 						/>
