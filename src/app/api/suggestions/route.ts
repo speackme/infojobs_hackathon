@@ -3,32 +3,21 @@ import { NextResponse } from 'next/server';
 const API =
 	'https://suggestqueries.google.com/complete/search?client=chrome&q=';
 
-function isShowSuggestion(term: string, suggestion: string) {
-	const dataArray = term.split(' ');
-	const dataArray2 = suggestion.split(' ');
-	let isValidate = true;
-
-	for (let i = 0; i < dataArray.length; i++) {
-		if (dataArray[i] !== dataArray2[i]) {
-			isValidate = false;
-			break;
-		}
-	}
-
-	return isValidate;
+function getSuggestionFormat(term: string, suggestion: string) {
+	let length = term.length;
+	let text = suggestion.substring(length);
+	return text.padStart(suggestion.length, ' ');
 }
 
 async function getSuggestions(term: string) {
 	const response = await fetch(`${API}${term}`);
 	const data = await response.json();
 	const suggestions = data[1][0];
-	const arrayTerm = term.split(' ');
 
-	if (arrayTerm.length < 0 && !isShowSuggestion(term, suggestions)) {
-		return '';
-	}
-
-	return suggestions;
+	return {
+		format: getSuggestionFormat(term, suggestions),
+		suggestions,
+	};
 }
 
 export async function GET(request: Request) {
@@ -41,5 +30,5 @@ export async function GET(request: Request) {
 
 	const suggestions = await getSuggestions(term);
 
-	return NextResponse.json({ suggestions });
+	return NextResponse.json(suggestions);
 }
