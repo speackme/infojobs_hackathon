@@ -1,0 +1,10 @@
+.container {
+	transition: 0.5s;
+	opacity: 0;
+	visibility: hidden;
+}
+
+.container.show {
+	opacity: 1;
+	visibility: visible;
+}

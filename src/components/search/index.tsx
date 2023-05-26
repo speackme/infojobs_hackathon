@@ -2,54 +2,62 @@ import { useContent } from '@/provider/content';
 import { debounce } from 'lodash';
 import { ChangeEvent, FormEvent, KeyboardEvent, useRef, useState } from 'react';
 
+import { tryCatch } from '@/utils/trycatch.util';
 import { CgSearch } from 'react-icons/cg';
+import { getMessageButton } from './getMessageButton';
 
-const WAIT_TIME = 1000;
+const WAIT_TIME = 800;
 const DEFAULT_PLACEHOLDER = 'Ej: Desarrollador, Diseñador ...';
 const DEFAULT_BUTTON = 'Encontrar trabajo';
 
 export function Search() {
-	const { show, setShow } = useContent();
+	// Estado del contexto
+	const { setShow, content, setContent } = useContent();
+
+	// Estado del componente
 	const [searchValue, setSearchValue] = useState('');
 	const [suggestionValue, setSuggestionValue] = useState('');
 	const [suggestions, setSuggestions] = useState('');
 	const [placeholder, setPlaceholder] = useState(DEFAULT_PLACEHOLDER);
 	const [textButton, setTextButton] = useState(DEFAULT_BUTTON);
+
+	// Referencias
 	const ref = useRef<HTMLInputElement | null>(null);
+
+	// Referencia al controlador de aborto
 	const abortControllerRef = useRef<AbortController | null>(null);
 
 	const handleSearch = async (searchTerm: string) => {
-		if (abortControllerRef.current) {
-			abortControllerRef.current.abort();
-		}
-
+		if (abortControllerRef.current) abortControllerRef.current.abort();
 		if (searchTerm.length === 0) return setSuggestions('');
 
 		const controller = new AbortController();
 		abortControllerRef.current = controller;
 
-		console.log('Buscando:', searchTerm);
-
-		setTextButton('+10 ofertas de trabajo');
-
 		// Recuperar total de ofertas de trabajo
-		/* try {
-			const response = await fetch(
-				`/api/offer?total=true&term=${searchTerm}`,
-				{
-					signal: controller.signal,
-				}
-			);
-			const data = await response.json();
-			
-		} catch (error) {
+		const [output, error] = await tryCatch(
+			fetch(`/api/offers?term=${searchTerm}`, {
+				signal: controller.signal,
+			})
+		);
+
+		if (error) {
 			console.error('Error al realizar la solicitud:', error);
-		} */
+			return;
+		}
+
+		const data = await output.json();
+		const { totalResults } = data;
+		setTextButton(getMessageButton(totalResults));
+		setContent(data);
 	};
 
 	const onSubmit = (event: FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
-		console.log({ searchValue });
+
+		if (!content?.totalResults) return;
+
+		setShow(true);
 	};
 
 	const onChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -58,12 +66,13 @@ export function Search() {
 		handleSearch(value);
 	};
 
-	const handleChange = debounce(onChange, WAIT_TIME);
-
 	const handleKeyDown = (event: KeyboardEvent<HTMLInputElement>) => {
+		const { value } = event.currentTarget;
+
 		if (event.key === 'Tab') {
 			event.preventDefault();
 			setSearchValue(suggestionValue);
+			handleSearch(value);
 
 			if (ref?.current) {
 				ref.current.value = suggestionValue;
@@ -77,6 +86,7 @@ export function Search() {
 		if (value.length === 0) {
 			setPlaceholder(DEFAULT_PLACEHOLDER);
 			setSuggestions('');
+			setTextButton('Encontrar trabajo');
 			return;
 		}
 
@@ -84,27 +94,29 @@ export function Search() {
 
 		if (event.key === 'Escape') {
 			setSuggestions('');
+			setTextButton('Encontrar trabajo');
 		}
 
-		try {
-			setSuggestions('');
-			const response = await fetch(`/api/suggestions?term=${value}`);
-			const data = await response.json();
-			setSuggestions(data.format.substring(0, 30));
-			setSuggestionValue(data.suggestions);
-		} catch (error) {
-			console.error('Error al realizar la solicitud:', error);
-		}
+		setSuggestions('');
+
+		const [output, error] = await tryCatch(
+			fetch(`/api/suggestions?term=${value}`)
+		);
+
+		if (error)
+			return console.error('Error al realizar la solicitud:', error);
+
+		const data = await output.json();
+		setSuggestions(data.format.substring(0, 30));
+		setSuggestionValue(data.suggestions);
 	};
 
-	const onClick = () => {
-		searchValue.length && setShow(true);
-	};
+	const handleChange = debounce(onChange, WAIT_TIME);
 
 	return (
-		<div className='w-5/6 flex bg-white rounded-full overflow-hidden'>
+		<div className='w-5/6 flex  rounded-full overflow-hidden'>
 			<div
-				className='flex items-center justify-center text-gray-400 aspect-square'
+				className='flex items-center bg-white justify-center text-gray-400 aspect-square'
 				style={{ height: '60px' }}>
 				<CgSearch className='text-xl' />
 			</div>
@@ -133,8 +145,7 @@ export function Search() {
 
 				<button
 					type='submit'
-					className='bg-blue-500 text-white p-4 w-80 border-none'
-					onClick={onClick}>
+					className='bg-blue-500 text-white p-4 w-80 border-none hover:bg-blue-600'>
 					{textButton}
 				</button>
 			</form>

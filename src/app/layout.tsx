@@ -1,6 +1,7 @@
 import { ContentProvider } from '@/provider/content';
 import { Inter } from 'next/font/google';
 
+import { InterviewProvider } from '@/provider/interview';
 import './globals.css';
 
 const inter = Inter({ subsets: ['latin'] });
@@ -23,7 +24,9 @@ export default function RootLayout({
 					src='https://cdn.splitbee.io/sb.js'></script>
 			</head>
 			<body className={`${inter.className} overflow-hidden`}>
-				<ContentProvider>{children}</ContentProvider>
+				<ContentProvider>
+					<InterviewProvider>{children}</InterviewProvider>
+				</ContentProvider>
 			</body>
 		</html>
 	);
