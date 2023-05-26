@@ -12,6 +12,7 @@ export function Interview() {
 	const [message, setMessage] = useState<string>('');
 	const [messages, setMessages] = useState<string[]>([]);
 	const [animation, setAnimation] = useState<string>('');
+	const [showLoading, setShowLoading] = useState<string>('');
 
 	const requirementMin = interview.requirementMin?.length
 		? interview.requirementMin
@@ -21,10 +22,18 @@ export function Interview() {
 		setMessage(e.target.value);
 	};
 
+	// evento al pulsar enter
+	const onKeyDown = (e: any) => {
+		if (e.key === 'Enter') {
+			onSubmit(e);
+		}
+	};
+
 	const onSubmit = async (e: any) => {
 		e.preventDefault();
 		setMessage('');
 		setContentMessage(`interview:${message}`);
+		setShowLoading(style.showLoading);
 
 		// Recuperar total de ofertas de trabajo
 		const [output, error] = await tryCatch(
@@ -36,6 +45,8 @@ export function Interview() {
 				}),
 			})
 		);
+
+		setShowLoading('');
 
 		if (error) {
 			console.error('Error al realizar la solicitud:', error);
@@ -73,6 +84,11 @@ export function Interview() {
 			className={`fixed top-0 left-0 w-full h-full bg-slate-900 flex items-center justify-center ${style.container} ${animation}`}>
 			<div className='flex gap-10 h-5/6 w-4/5 max-w-7xl'>
 				<div className='w-full bg-slate-800 rounded-xl p-5 flex flex-col gap-5 justify-between'>
+					<div>
+						<div className={`${style.loading} ${showLoading}`}>
+							<span>Preparando respuesta ...</span>
+						</div>
+					</div>
 					<div className='flex flex-col h-full justify-end overflow-hidden'>
 						<div
 							className='flex flex-col gap-3 overflow-auto'
@@ -96,7 +112,7 @@ export function Interview() {
 											}`}>
 											<span className='flex text-slate-400 font-semibold'>
 												{owner === 'edith'
-													? 'Recursos Hummanos Edith'
+													? 'Recursos Humanos Edith'
 													: 'Entrevistado'}
 											</span>
 											<p className='text-white'>{msn}</p>
@@ -106,23 +122,27 @@ export function Interview() {
 							})}
 						</div>
 					</div>
-					<div className='bg-slate-700  rounded-xl overflow-hidden px-4 py-2'>
+					<div className='bg-slate-700  rounded-xl overflow-hidden'>
 						<form
-							className='flex gap-5'
+							className='flex gap-5 items-center px-4 py-2 h-16'
 							onSubmit={onSubmit}>
 							<textarea
 								className='w-full bg-transparent text-white outline-none resize-none'
+								style={{ height: '30px' }}
 								placeholder='Escribe preguntas al entrevistador'
 								onChange={onChange}
+								onKeyDown={onKeyDown}
 								value={message}></textarea>
 							<button
 								type='submit'
-								className='bg-slate-800 hover:bg-slate-900 px-6 h-11 rounded-xl'>
+								className='bg-slate-800 hover:bg-slate-900 px-6 py-3 rounded-xl'
+								style={{ marginTop: '-7px' }}>
 								Enviar
 							</button>
 						</form>
 					</div>
 				</div>
+
 				<div className='max-w-sm'>
 					<button
 						onClick={closeInterview}

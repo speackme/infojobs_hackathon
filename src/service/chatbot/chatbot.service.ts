@@ -12,9 +12,14 @@ export class ChatBotService {
 		message: string;
 		interview: ItemDto;
 	}) {
-		const promt = `Eres entrevistador que se llama Edith. 
+		const promt = `Eres entrevistador que se llama Edith, que el nombre hacer referencia a Spiderman y 
+		significa E.D.I.T.H "Even Dead, I'm The Hero" que era sistema táctico 
+		de realidad aumentada, seguridad y defensa e inteligencia artificial creada por Anthony Stark. 
 		Y vas a realizar una entrevista para el puesto
-		de trabajo como ${interview.title.toLocaleLowerCase()}. Donde los requisitos son los siguientes:
+		de trabajo como ${interview.title.toLocaleLowerCase()}. 
+		Tendrás que hacer una pregunta cada vez. 
+		
+		Donde los requisitos son los siguientes:
 		- ${interview.experienceMin.value || `0 años de experiencia`} 
 		- ${interview.study.value || `No se requiere estudios`}
 		- ${interview.contractType.value || `No se especifica el tipo de contrato`}

@@ -8,3 +8,18 @@
 	opacity: 1;
 	visibility: visible;
 }
+
+.loading {
+	background: #384559;
+	border-radius: 5px;
+	color: #94a3b8;
+	padding: 5px 11px;
+	opacity: 0;
+	transition: 0.5s;
+	overflow: hidden;
+	height: 33px;
+}
+
+.loading.showLoading {
+	opacity: 0.5;
+}
