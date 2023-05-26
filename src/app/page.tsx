@@ -1,9 +1,10 @@
 'use client';
 
+import { Content } from '@/components/content';
+import { Interview } from '@/components/interview';
+import { Search } from '@/components/search';
 import { useEffect, useState } from 'react';
 import { TypeAnimation } from 'react-type-animation';
-import { Content } from '../components/content';
-import { Search } from '../components/search';
 
 const titles = [
 	'Revolucione su búsqueda de empleo con nuestra plataforma de última generación',
@@ -74,6 +75,7 @@ export default function Home() {
 				</div>
 			</section>
 			<Content />
+			<Interview />
 		</main>
 	);
 }
