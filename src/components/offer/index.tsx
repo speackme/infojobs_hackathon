@@ -1,6 +1,7 @@
 import { useInterview } from '@/provider/interview';
 import { ItemDto } from '@/service/infojobs/infojobs.dto';
 import { limitString } from '@/utils/limitString';
+import style from './style.module.css';
 
 export function Offer({ item }: { item: ItemDto }) {
 	const { setShow, setInterview } = useInterview();
@@ -10,7 +11,8 @@ export function Offer({ item }: { item: ItemDto }) {
 		: 'No especificado';
 
 	return (
-		<li className='flex flex-col gap-3 text-slate-900 bg-slate-200 p-5 rounded-lg justify-between'>
+		<li
+			className={`${style.container} flex flex-col gap-3 text-slate-900 bg-slate-200 p-5 rounded-lg justify-between`}>
 			<div className='flex flex-col gap-3'>
 				<div className='flex justify-between'>
 					<div className='flex gap-3'>

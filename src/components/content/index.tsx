@@ -15,9 +15,10 @@ export function Content() {
 
 	return (
 		<div
-			className={`absolute w-full h-full bg-slate-600 duration-300 flex justify-center overflow-y-auto ${showStyle}`}>
+			className={`absolute w-full h-full duration-300 flex justify-center overflow-y-auto ${showStyle}`}
+			style={{ backgroundColor: '#355db4' }}>
 			<div className='w-9/12 pt-5'>
-				<div className='mb-10 sticky top-5 relative'>
+				<div className='mb-10 sticky top-5 relative z-50'>
 					<div className={style.container}></div>
 					<img
 						src='/ij.webp'
