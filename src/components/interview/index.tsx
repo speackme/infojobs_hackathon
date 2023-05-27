@@ -2,6 +2,7 @@ import { useInterview } from '@/provider/interview';
 import { tryCatch } from '@/utils/trycatch.util';
 import { useEffect, useRef, useState } from 'react';
 import { H3 } from '../heading';
+import { Loading } from '../loading';
 import style from './style.module.css';
 
 export function Interview() {
@@ -24,27 +25,23 @@ export function Interview() {
 
 	// evento al pulsar enter
 	const onKeyDown = (e: any) => {
-		if (e.key === 'Enter') {
-			onSubmit(e);
-		}
+		if (e.key === 'Enter') onSubmit(e);
 	};
 
-	const onSubmit = async (e: any) => {
-		e.preventDefault();
-		setMessage('');
-		setContentMessage(`interview:${message}`);
-		setShowLoading(style.showLoading);
+	const fetchInterview = async (message: string) => {
+		return await fetch(`/api/edith`, {
+			method: 'POST',
+			body: JSON.stringify({
+				interview,
+				message,
+			}),
+		});
+	};
 
+	const sendEdith = async (message: string) => {
+		console.log('send edith message', message);
 		// Recuperar total de ofertas de trabajo
-		const [output, error] = await tryCatch(
-			fetch(`/api/edith`, {
-				method: 'POST',
-				body: JSON.stringify({
-					interview,
-					message,
-				}),
-			})
-		);
+		const [output, error] = await tryCatch(fetchInterview(message));
 
 		setShowLoading('');
 
@@ -57,7 +54,15 @@ export function Interview() {
 
 		setTimeout(() => {
 			setContentMessage(`edith:${data.message}`);
-		}, 1000);
+		}, 250);
+	};
+
+	const onSubmit = async (e: any) => {
+		e.preventDefault();
+		setMessage('');
+		setContentMessage(`interview:${message}`);
+		setShowLoading(style.showLoading);
+		sendEdith(message);
 	};
 
 	const setContentMessage = (message: string) => {
@@ -71,12 +76,20 @@ export function Interview() {
 		}, 100);
 	};
 
+	const presentationMessage = () => {
+		const message = `edith:Hola, mi nombre es Edith y soy quien te ayudará a gestionar esta oferta.`;
+		setContentMessage(message);
+	};
+
 	const closeInterview = () => {
 		setShow(false);
 	};
 
 	useEffect(() => {
+		setMessages([]);
 		setAnimation(show ? style.show : '');
+		if (!show) return;
+		presentationMessage();
 	}, [show]);
 
 	return (
@@ -84,11 +97,6 @@ export function Interview() {
 			className={`fixed top-0 left-0 w-full h-full bg-slate-900 flex items-center justify-center ${style.container} ${animation}`}>
 			<div className='flex gap-10 h-5/6 w-4/5 max-w-7xl'>
 				<div className='w-full bg-slate-800 rounded-xl p-5 flex flex-col gap-5 justify-between'>
-					<div>
-						<div className={`${style.loading} ${showLoading}`}>
-							<span>Preparando respuesta ...</span>
-						</div>
-					</div>
 					<div className='flex flex-col h-full justify-end overflow-hidden'>
 						<div
 							className='flex flex-col gap-3 overflow-auto'
@@ -122,7 +130,7 @@ export function Interview() {
 							})}
 						</div>
 					</div>
-					<div className='bg-slate-700  rounded-xl overflow-hidden'>
+					<div className='bg-slate-700 rounded-xl overflow-hidden relative'>
 						<form
 							className='flex gap-5 items-center px-4 py-2 h-16'
 							onSubmit={onSubmit}>
@@ -136,10 +144,13 @@ export function Interview() {
 							<button
 								type='submit'
 								className='bg-slate-800 hover:bg-slate-900 px-6 py-3 rounded-xl'
-								style={{ marginTop: '-7px' }}>
+								style={{ marginTop: '-5px' }}>
 								Enviar
 							</button>
 						</form>
+						<div className={`${style.loading} ${showLoading}`}>
+							<Loading />
+						</div>
 					</div>
 				</div>
 
