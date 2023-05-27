@@ -1,3 +1,5 @@
+Ya puedes realizar tus primeras entevistas con la IA [Emulador de entrevistas](https://infojobs-hackathon-7b7zqnabzq-ez.a.run.app/).
+
 ![Presentación](doc/presentation.png)
 
 En la era digital actual, la búsqueda de empleo se ha vuelto cada vez más competitiva y desafiante. Afortunadamente, la tecnología ha avanzado a pasos agigantados, ofreciendo soluciones innovadoras para simplificar el proceso de encontrar el trabajo ideal. En este contexto, me complace presentarte una aplicación web revolucionaria que combina lo mejor de ambos mundos: la plataforma de búsqueda de empleo InfoJobs y la simulación de entrevistas con inteligencia artificial.
@@ -10,6 +12,8 @@ InfoJobs es una plataforma reconocida a nivel mundial que conecta a empresas y c
 
 Aquí es donde entra en juego nuestra aplicación web innovadora. Hemos desarrollado una herramienta que utiliza inteligencia artificial para brindar simulaciones de entrevistas, lo que te permite practicar y perfeccionar tus habilidades de entrevista antes de enfrentarte a la realidad. Esta herramienta te ofrece una experiencia cercana a una entrevista real, con preguntas específicas según tu campo laboral y el tipo de puesto que estás buscando.
 
+![Preview](doc/preview.gif)
+
 ## 😎 Beneficios de la simulación de entrevistas con inteligencia artificial
 
 -   Entrenamiento personalizado: La inteligencia artificial adapta las preguntas y respuestas a tu perfil y preferencias, brindándote una experiencia personalizada para mejorar tus habilidades de entrevista.
@@ -20,7 +24,7 @@ Aquí es donde entra en juego nuestra aplicación web innovadora. Hemos desarrol
 
 ## 🚀 Dónde puedes probar la aplicación ?
 
-Para experimentar de primera mano la poderosa combinación de la plataforma de búsqueda de empleo InfoJobs y la simulación de entrevistas con inteligencia artificial, simplemente dirígete a nuestro sitio web: interview-simulator.net
+Para experimentar de primera mano la poderosa combinación de la plataforma de búsqueda de empleo InfoJobs y la simulación de entrevistas con inteligencia artificial, simplemente dirígete a nuestro sitio web: https://infojobs-hackathon-7b7zqnabzq-ez.a.run.app/
 
 ## 💻 Que recursos se han utilizado ?
 
