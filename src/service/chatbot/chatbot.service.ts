@@ -4,6 +4,7 @@ export class ChatBotService {
 	private readonly BASE = 'https://api.openai.com/v1/chat/completions';
 	private readonly KEY = process.env.OPENAI_KEY;
 	private readonly MODEL = 'gpt-3.5-turbo';
+	private readonly TEMPERATURE = 0.1;
 
 	async getResponse({
 		message,
@@ -12,9 +13,7 @@ export class ChatBotService {
 		message: string;
 		interview: ItemDto;
 	}) {
-		const promt = `Eres entrevistador que se llama Edith, que el nombre hacer referencia a Spiderman y 
-		significa E.D.I.T.H "Even Dead, I'm The Hero" que era sistema táctico 
-		de realidad aumentada, seguridad y defensa e inteligencia artificial creada por Anthony Stark. 
+		const promt = `Eres entrevistador y tienes que hacer preguntas y contestaciones cortas. 
 		Y vas a realizar una entrevista para el puesto
 		de trabajo como ${interview.title.toLocaleLowerCase()}. 
 		Tendrás que hacer una pregunta cada vez. 
@@ -35,8 +34,8 @@ export class ChatBotService {
 				: ''
 		}. Para
 		la empresa ${interview.author.name}.
-		Y al finalizar la entrevista, valorar como lo ha echo la 
-		persona entrevistada dando una perpectiva y consejos para mejorar.
+
+		Al acabar la entrevista, hacer una valoración contructiva y los puntos a mejorar.
 		`;
 
 		const response = await fetch(`${this.BASE}`, {
@@ -54,7 +53,7 @@ export class ChatBotService {
 					{ role: 'user', content: message },
 				],
 				model: this.MODEL,
-				temperature: 0.7,
+				temperature: this.TEMPERATURE,
 			}),
 		});
 
