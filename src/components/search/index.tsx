@@ -6,7 +6,7 @@ import { tryCatch } from '@/utils/trycatch.util';
 import { CgSearch } from 'react-icons/cg';
 import { getMessageButton } from './getMessageButton';
 
-const WAIT_TIME = 800;
+const WAIT_TIME = 500;
 const DEFAULT_PLACEHOLDER = 'Ej: Desarrollador, Diseñador ...';
 const DEFAULT_BUTTON = 'Encontrar trabajo';
 
@@ -26,6 +26,7 @@ export function Search() {
 
 	// Referencia al controlador de aborto
 	const abortControllerRef = useRef<AbortController | null>(null);
+	const abortControllerSuggestionsRef = useRef<AbortController | null>(null);
 
 	const handleSearch = async (searchTerm: string) => {
 		if (abortControllerRef.current) abortControllerRef.current.abort();
@@ -81,6 +82,12 @@ export function Search() {
 	};
 
 	const onKeyUp = async (event: KeyboardEvent<HTMLInputElement>) => {
+		if (abortControllerSuggestionsRef.current)
+			abortControllerSuggestionsRef.current.abort();
+
+		const controller = new AbortController();
+		abortControllerSuggestionsRef.current = controller;
+
 		const { value } = event.currentTarget;
 
 		if (value.length === 0) {
@@ -100,7 +107,9 @@ export function Search() {
 		setSuggestions('');
 
 		const [output, error] = await tryCatch(
-			fetch(`/api/suggestions?term=${value}`)
+			fetch(`/api/suggestions?term=${value}`, {
+				signal: controller.signal,
+			})
 		);
 
 		if (error)
