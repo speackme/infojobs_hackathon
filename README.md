@@ -1,4 +1,4 @@
-Ya puedes realizar tus primeras entevistas con la IA [Emulador de entrevistas](https://infojobs-hackathon-7b7zqnabzq-ez.a.run.app/).
+Ya puedes realizar tus primeras entevistas con la IA [Emulador de entrevistas](https://interview-simulator.net/).
 
 ![Presentación](doc/presentation.png)
 
@@ -24,7 +24,7 @@ Aquí es donde entra en juego nuestra aplicación web innovadora. Hemos desarrol
 
 ## 🚀 Dónde puedes probar la aplicación ?
 
-Para experimentar de primera mano la poderosa combinación de la plataforma de búsqueda de empleo InfoJobs y la simulación de entrevistas con inteligencia artificial, simplemente dirígete a nuestro sitio web: https://infojobs-hackathon-7b7zqnabzq-ez.a.run.app/
+Para experimentar de primera mano la poderosa combinación de la plataforma de búsqueda de empleo InfoJobs y la simulación de entrevistas con inteligencia artificial, simplemente dirígete a nuestro sitio web: https://interview-simulator.net/
 
 ## 💻 Que recursos se han utilizado ?
 
