@@ -11,15 +11,20 @@
 
 .loading {
 	background: #384559;
-	border-radius: 5px;
 	color: #94a3b8;
-	padding: 5px 11px;
-	opacity: 0;
-	transition: 0.5s;
+	transition: 1s;
 	overflow: hidden;
-	height: 33px;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	transform: translateY(100%);
 }
 
 .loading.showLoading {
-	opacity: 0.5;
+	transform: translateY(0);
 }
