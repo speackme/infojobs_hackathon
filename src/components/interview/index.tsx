@@ -157,9 +157,15 @@ export function Interview() {
 				<div className='max-w-sm'>
 					<button
 						onClick={closeInterview}
-						className='px-5 py-4 block mb-5 rounded-xl bg-cyan-800 text-cyan-50 hover:bg-cyan-900 ease-in-out'>
+						className='px-5 py-4 block rounded-xl bg-cyan-800 text-cyan-50 hover:bg-cyan-900 ease-in-out'>
 						Cerrar entrevista
 					</button>
+					<img
+						src='/ij.webp'
+						alt='InfoJobs'
+						className='w-80'
+						style={{ marginLeft: '-30px' }}
+					/>
 					<H3 className='font-bold text-slate-200 mb-2'>
 						{interview.title}
 					</H3>
