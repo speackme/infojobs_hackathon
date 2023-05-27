@@ -39,7 +39,6 @@ export function Interview() {
 	};
 
 	const sendEdith = async (message: string) => {
-		console.log('send edith message', message);
 		// Recuperar total de ofertas de trabajo
 		const [output, error] = await tryCatch(fetchInterview(message));
 
@@ -57,9 +56,29 @@ export function Interview() {
 		}, 250);
 	};
 
+	const randomPhraseal = [
+		'Recuerda que debes escribir algo para que te pueda contestar',
+		'No te entiendo, ¿puedes repetirlo?',
+		'¿Podrías repetirlo?',
+		'¿Podrías repetirlo de otra forma?',
+		'Puede que no te entienda, ¿podrías repetirlo?',
+		'Intenta escribir de otra forma lo que quieres decirme',
+	];
+
+	const randomPhrase = () => {
+		const index = Math.floor(Math.random() * randomPhraseal.length);
+		return randomPhraseal[index];
+	};
+
 	const onSubmit = async (e: any) => {
 		e.preventDefault();
 		setMessage('');
+
+		if (!message?.length) {
+			setContentMessage(`edith:${randomPhrase()}`);
+			return;
+		}
+
 		setContentMessage(`interview:${message}`);
 		setShowLoading(style.showLoading);
 		sendEdith(message);
