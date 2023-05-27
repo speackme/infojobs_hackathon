@@ -1,6 +1,9 @@
 import { useContent } from '@/provider/content';
 import { useEffect, useState } from 'react';
+import { H2, H4 } from '../heading';
 import { Offer } from '../offer';
+import { Search } from '../search';
+import style from './style.module.css';
 
 export function Content() {
 	const { show, setShow, content } = useContent();
@@ -12,18 +15,33 @@ export function Content() {
 
 	return (
 		<div
-			className={`absolute w-full h-full bg-slate-300 duration-300 flex justify-center overflow-y-auto ${showStyle}`}>
+			className={`absolute w-full h-full bg-slate-600 duration-300 flex justify-center overflow-y-auto ${showStyle}`}>
 			<div className='w-9/12 pt-5'>
-				<h1>titulo asdd</h1>
-				<p>
-					Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-					Nisi repudiandae temporibus, accusantium aliquid quis eum ut
-					debitis eos ipsam illum praesentium reiciendis odit minima?
-					Earum dicta iste sunt non saepe.
-				</p>
+				<div className='mb-10 sticky top-5 relative'>
+					<div className={style.container}></div>
+					<img
+						src='/ij.webp'
+						alt='InfoJobs'
+						className='w-80 mx-auto'
+					/>
+					<H2 className='text-center'>
+						¡Descubre Increíbles Oportunidades Laborales en Diversos
+						Sectores!
+					</H2>
+					<H4 className='text-center text-slate-300 mb-5'>
+						Explora una{' '}
+						<b className='text-cyan-300 font-bold'>
+							Lista de Empleos Impresionantes
+						</b>{' '}
+						que pueden cambiar tu carrera
+					</H4>
+					<div className='flex flex-col items-center'>
+						<Search />
+					</div>
+				</div>
 
 				{content && content.items ? (
-					<ul className='grid grid-cols-3 gap-5'>
+					<ul className='grid grid-cols-3 gap-5 pb-10'>
 						{content.items.map((item, index) => {
 							return (
 								<Offer
