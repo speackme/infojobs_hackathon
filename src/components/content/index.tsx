@@ -23,7 +23,7 @@ export function Content() {
 					<img
 						src='/ij.webp'
 						alt='InfoJobs'
-						className='w-80 mx-auto'
+						className='w-80 mx-auto pt-5 md:pt-0'
 					/>
 					<H2 className='text-center text-bold'>
 						¡Descubre Increíbles Oportunidades Laborales en Diversos
