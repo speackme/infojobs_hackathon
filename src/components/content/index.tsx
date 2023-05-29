@@ -17,7 +17,7 @@ export function Content() {
 		<div
 			className={`absolute w-full h-full duration-300 flex justify-center overflow-y-auto ${showStyle}`}
 			style={{ backgroundColor: '#355db4' }}>
-			<div className='w-9/12 pt-5'>
+			<div className='w-11/12 pt-5 lg:w-9/12'>
 				<div className='mb-10 sticky top-5 relative z-50'>
 					<div className={style.container}></div>
 					<img
@@ -42,7 +42,7 @@ export function Content() {
 				</div>
 
 				{content && content.items ? (
-					<ul className='grid grid-cols-3 gap-5 pb-10'>
+					<ul className='grid grid-cols-1 gap-5 pb-10 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4'>
 						{content.items.map((item, index) => {
 							return (
 								<Offer

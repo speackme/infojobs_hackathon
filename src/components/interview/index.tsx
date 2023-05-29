@@ -114,8 +114,8 @@ export function Interview() {
 	return (
 		<div
 			className={`fixed top-0 left-0 w-full h-full bg-slate-900 flex items-center justify-center ${style.container} ${animation}`}>
-			<div className='flex gap-10 h-5/6 w-4/5 max-w-7xl'>
-				<div className='w-full bg-slate-800 rounded-xl p-5 flex flex-col gap-5 justify-between'>
+			<div className='flex gap-10 w-full h-full lg:h-5/6 lg:w-4/5 lg:max-w-7xl'>
+				<div className='w-full bg-slate-800 lg:rounded-xl p-5 flex flex-col gap-5 justify-between'>
 					<div className='flex flex-col h-full justify-end overflow-hidden'>
 						<div
 							className='flex flex-col gap-3 overflow-auto'
@@ -173,7 +173,7 @@ export function Interview() {
 					</div>
 				</div>
 
-				<div className='max-w-sm'>
+				<div className='max-w-sm hidden lg:block'>
 					<button
 						onClick={closeInterview}
 						className='px-5 py-4 block rounded-xl bg-cyan-800 text-cyan-50 hover:bg-cyan-900 ease-in-out'>
