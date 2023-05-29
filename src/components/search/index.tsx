@@ -49,6 +49,7 @@ export function Search() {
 
 		const data = await output.json();
 		const { totalResults } = data;
+		console.log(data);
 		setTextButton(getMessageButton(totalResults));
 		setContent(data);
 	};
@@ -154,7 +155,7 @@ export function Search() {
 
 				<button
 					type='submit'
-					className='bg-blue-500 text-white p-4 w-80 border-none hover:bg-blue-600'>
+					className='bg-blue-500 text-white p-4 w-80 border-none hover:bg-blue-600 hidden md:block'>
 					{textButton}
 				</button>
 			</form>

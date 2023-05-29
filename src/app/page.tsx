@@ -6,31 +6,17 @@ import { Search } from '@/components/search';
 import { useEffect, useState } from 'react';
 import { TypeAnimation } from 'react-type-animation';
 
-const titles = [
-	'Revolucione su búsqueda de empleo con nuestra plataforma de última generación',
-	'Maximice sus oportunidades laborales utilizando nuestra avanzada tecnología de búsqueda de empleo',
-	'Acelere su carrera profesional con nuestra innovadora herramienta de búsqueda de trabajo',
-	'Encuentre su camino hacia el éxito profesional con nuestra plataforma de vanguardia',
-	'Amplíe sus posibilidades de empleo con nuestra tecnología de búsqueda de última generación',
-];
+const titles =
+	'Revolucione su búsqueda de empleo con nuestra plataforma de última generación';
 
-const subtitles = [
-	'Potencie su trayectoria con nuestra tecnología de vanguardia para encontrar oportunidades laborales',
-	'Acelere su progreso profesional utilizando nuestra plataforma líder en búsqueda de empleo',
-	'Optimice su camino hacia el éxito con nuestra herramienta revolucionaria de búsqueda de trabajo',
-	'Amplíe sus horizontes laborales con nuestra plataforma de última generación para encontrar empleo',
-	'Dé un impulso a su carrera profesional con nuestra innovadora solución de búsqueda de empleo',
-];
-
-function random(min: number, max: number): number {
-	return Math.floor(Math.random() * (max - min + 1)) + min;
-}
+const subtitles =
+	'Potencie su trayectoria con nuestra tecnología de vanguardia para encontrar oportunidades laborales';
 
 export default function Home() {
 	/* const index = random(0, titles.length - 1); */
 	const [show, setShow] = useState<string>('opacity-0');
-	const [title, setTitle] = useState<string | null>(titles[0]);
-	const [subtitle, setSubtitle] = useState<string | null>(subtitles[0]);
+	const [title, setTitle] = useState<string | null>(titles);
+	const [subtitle, setSubtitle] = useState<string | null>(subtitles);
 
 	useEffect(() => {
 		setTimeout(() => {
@@ -51,11 +37,15 @@ export default function Home() {
 						/>
 					</div>
 
-					<h1 className='text-6xl font-black'>{title}</h1>
-					<h2 className='text-4xl mb-8 text-blue-100'>{subtitle}</h2>
+					<h1 className='text-3xl font-black px-5 md:text-6xl md:px-0'>
+						{title}
+					</h1>
+					<h2 className='text-xl mb-8 text-blue-100 px-5 md:text-4xl md:px-0'>
+						{subtitle}
+					</h2>
 
 					<Search />
-					<small className='text-slate-200 mb-8'>
+					<small className='text-slate-200 mb-8 hidden md:block'>
 						Se te van a sugerir contenido en la busqueda, pulse
 						&apos;tab&apos; para confirmar
 					</small>
@@ -69,7 +59,7 @@ export default function Home() {
 						]}
 						wrapper='h4'
 						cursor={true}
-						className='text-xl'
+						className='text-sm px-5 md:text-xl'
 						style={{ display: 'inline-block', height: '27px' }}
 					/>
 				</div>
