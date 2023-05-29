@@ -1,6 +1,7 @@
 import { useInterview } from '@/provider/interview';
 import { tryCatch } from '@/utils/trycatch.util';
 import { useEffect, useRef, useState } from 'react';
+import { IoCloseSharp } from 'react-icons/io5';
 import { H3 } from '../heading';
 import { Loading } from '../loading';
 import style from './style.module.css';
@@ -117,6 +118,13 @@ export function Interview() {
 			<div className='flex gap-10 w-full h-full lg:h-5/6 lg:w-4/5 lg:max-w-7xl'>
 				<div className='w-full bg-slate-800 lg:rounded-xl p-5 flex flex-col gap-5 justify-between'>
 					<div className='flex flex-col h-full justify-end overflow-hidden'>
+						<div className='absolute top-0 right-0 p-5'>
+							<button
+								onClick={closeInterview}
+								className='block bg-slate-900 text-zinc-50/50 text-xl p-2 rounded-xl md:hidden'>
+								<IoCloseSharp />
+							</button>
+						</div>
 						<div
 							className='flex flex-col gap-3 overflow-auto'
 							ref={chatContainerRef}>

@@ -25,7 +25,7 @@ export function Content() {
 						alt='InfoJobs'
 						className='w-80 mx-auto'
 					/>
-					<H2 className='text-center'>
+					<H2 className='text-center text-bold'>
 						¡Descubre Increíbles Oportunidades Laborales en Diversos
 						Sectores!
 					</H2>
